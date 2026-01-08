@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="cJSON.c">
+      <Filter>third_party</Filter>
+    </ClCompile>
+    <ClCompile Include="reactor.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="memorypool.cpp">
+      <Filter>infra</Filter>
+    </ClCompile>
+    <ClCompile Include="timewheel.c">
+      <Filter>infra</Filter>
+    </ClCompile>
+    <ClCompile Include="accepthandler.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="connectionhandler.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="mqtthandler.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol.cpp">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="HandlerFactory.cpp">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Dispatcher.cpp">
+      <Filter>service</Filter>
+    </ClCompile>
+    <ClCompile Include="IReactor.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cJSON.h">
+      <Filter>third_party</Filter>
+    </ClInclude>
+    <ClInclude Include="reactor.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="timewheel.h">
+      <Filter>infra</Filter>
+    </ClInclude>
+    <ClInclude Include="memorypool.h">
+      <Filter>infra</Filter>
+    </ClInclude>
+    <ClInclude Include="eventhandler.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="accepthandler.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="connectionhandler.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="mqtthandler.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="packet.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="HandlerFactory.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Dispatcher.h">
+      <Filter>service</Filter>
+    </ClInclude>
+    <ClInclude Include="IReactor.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{e9047fca-8bf4-4016-b426-c5819fac6b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{0f6b3aaf-ac8a-4cfa-9fdb-8c025fbda5d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{3fbe37f0-114c-4000-acba-93837d6cbe07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service">
+      <UniqueIdentifier>{366fd7cd-3be6-4bb9-8ddc-a5bc1c4058f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infra">
+      <UniqueIdentifier>{2d0d5ae9-b473-4d3a-ad6c-da7379600b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{bfe350ca-cfa5-4841-9dc3-3da00ec819e3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md" />
+  </ItemGroup>
+</Project>

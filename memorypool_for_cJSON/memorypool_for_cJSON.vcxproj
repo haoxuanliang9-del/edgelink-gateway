@@ -76,22 +76,48 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="accepthandler.cpp" />
     <ClCompile Include="cJSON.c" />
+    <ClCompile Include="connectionhandler.cpp" />
+    <ClCompile Include="Dispatcher.cpp" />
+    <ClCompile Include="HandlerFactory.cpp" />
+    <ClCompile Include="IReactor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memorypool.cpp" />
+    <ClCompile Include="mqtthandler.cpp" />
+    <ClCompile Include="protocol.cpp" />
     <ClCompile Include="reactor.cpp" />
     <ClCompile Include="timewheel.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="accepthandler.h" />
     <ClInclude Include="cJSON.h" />
+    <ClInclude Include="connectionhandler.h" />
+    <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="eventhandler.h" />
+    <ClInclude Include="HandlerFactory.h" />
+    <ClInclude Include="IReactor.h" />
     <ClInclude Include="memorypool.h" />
+    <ClInclude Include="mqtthandler.h" />
+    <ClInclude Include="packet.h" />
+    <ClInclude Include="protocol.h" />
     <ClInclude Include="reactor.h" />
     <ClInclude Include="timewheel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md">
+      <SubType>
+      </SubType>
+    </None>
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>/usr/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <LibraryDependencies>mosquitto</LibraryDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

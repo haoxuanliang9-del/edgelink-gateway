@@ -1,3 +1,9 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+
 #pragma once
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 199309L
@@ -47,12 +53,9 @@ typedef struct Wheel
     uint64_t time;
 } Wheel;
 
-uint64_t get_monotonic_ms(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t)ts.tv_sec * 1000ULL + (uint64_t)ts.tv_nsec / 1000000ULL;
-}
+
+
+uint64_t get_monotonic_ms(void);
 
 void initWheel(Wheel* wheel);
 
@@ -63,3 +66,6 @@ TimeWheelNode* addNewTimer(Wheel* wheel, callback func, uint64_t delay, void* ar
 void clearTimeWheel(Wheel* w);
 
 void cancelTimer(TimeWheelNode* t);
+#ifdef __cplusplus
+}
+#endif

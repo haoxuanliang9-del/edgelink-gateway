@@ -1,5 +1,4 @@
 ﻿#include "reactor.h"
-#include "cJSON.h"
 #include "memorypool.h"
 #include <iostream>
 
@@ -38,11 +37,8 @@ int main() {
     mosquitto_message_callback_set(mosq, on_message);
 
     // 2. 異步連接 (這不會阻塞，但會初始化內部數據結構)
-    if (mosquitto_connect(mosq, "127.0.0.1", 1883, 60) != MOSQ_ERR_SUCCESS) {
-        perror("MQTT connect failed");
-        return -1;
-    }
-    mosquitto_subscribe(mosq, NULL, "opi/sensor", 0);
+    mosquitto_connect_async(mosq, "127.0.0.1", 1883, 60);
+    mosquitto_subscribe(mosq, NULL, "sensor", 0);
 
     // 3. 初始化本地 TCP 監聽
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -67,7 +63,7 @@ int main() {
     Reactor reactor(sockfd, mosq);
     if (mosqfd != -1) {
         // 將 mosq 實例傳入，以便 Handler 內部調用
-        reactor.mqttRegister(mosqfd, EPOLLIN | EPOLLOUT, nullptr, mosq);
+        reactor.mqttRegister(mosqfd, EPOLLIN, nullptr, mosq);
     }
 
     std::cout << "Gateway is running... Listening on port 2048" << std::endl;

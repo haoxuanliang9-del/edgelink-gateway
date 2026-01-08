@@ -1,4 +1,11 @@
 #include "timewheel.h"
+
+uint64_t get_monotonic_ms(void)
+{
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (uint64_t)ts.tv_sec * 1000ULL + (uint64_t)ts.tv_nsec / 1000000ULL;
+}
 void initWheel(Wheel* wheel)
 {
     memset(wheel, 0, sizeof(Wheel));
@@ -23,35 +30,29 @@ void reAddTimer(Wheel* wheel, TimeWheelNode* node)
     uint64_t expire = node->expire;
     uint64_t delay = expire - current;
 
-    int level;
     int pos;
     if (delay < TVR_SIZE)
     {
-        level = 1;
         pos = expire & TVR_MASK;
         insertTimer(&wheel->wheelL1[pos], node);
     }
     else if (delay < (1U << (TVR_BITS + TVN_BITS)))
     {
-        level = 2;
         pos = (expire >> TVR_BITS) & TVN_MASK;
         insertTimer(&wheel->wheelL2[pos], node);
     }
     else if (delay < (1U << (TVR_BITS + 2 * TVN_BITS)))
     {
-        level = 3;
         pos = (expire >> (TVR_BITS + TVN_BITS)) & TVN_MASK;
         insertTimer(&wheel->wheelL3[pos], node);
     }
     else if (delay < (1U << (TVR_BITS + 3 * TVN_BITS)))
     {
-        level = 4;
         pos = (expire >> (TVR_BITS + 2 * TVN_BITS)) & TVN_MASK;
         insertTimer(&wheel->wheelL4[pos], node);
     }
     else if (delay <= MAX_SUPPORTED_DELAY)
     {
-        level = 5;
         pos = (expire >> (TVR_BITS + 3 * TVN_BITS)) & TVN_MASK;
         insertTimer(&wheel->wheelL5[pos], node);
     }
@@ -306,35 +307,29 @@ TimeWheelNode* addNewTimer(Wheel* wheel, callback func, uint64_t delay, void* ar
     node->args = args;
     node->active = true;
 
-    int level;
     int pos;
     if (delay < TVR_SIZE)
     {
-        level = 1;
         pos = expire & TVR_MASK;
         insertTimer(&wheel->wheelL1[pos], node);
     }
     else if (delay < (1U << (TVR_BITS + TVN_BITS)))
     {
-        level = 2;
         pos = (expire >> TVR_BITS) & TVN_MASK;
         insertTimer(&wheel->wheelL2[pos], node);
     }
     else if (delay < (1U << (TVR_BITS + 2 * TVN_BITS)))
     {
-        level = 3;
         pos = (expire >> (TVR_BITS + TVN_BITS)) & TVN_MASK;
         insertTimer(&wheel->wheelL3[pos], node);
     }
     else if (delay < (1U << (TVR_BITS + 3 * TVN_BITS)))
     {
-        level = 4;
         pos = (expire >> (TVR_BITS + 2 * TVN_BITS)) & TVN_MASK;
         insertTimer(&wheel->wheelL4[pos], node);
     }
     else if (delay <= MAX_SUPPORTED_DELAY)
     {
-        level = 5;
         pos = (expire >> (TVR_BITS + 3 * TVN_BITS)) & TVN_MASK;
         insertTimer(&wheel->wheelL5[pos], node);
     }
